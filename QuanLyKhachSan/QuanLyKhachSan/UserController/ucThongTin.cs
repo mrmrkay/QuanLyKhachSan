@@ -1,0 +1,103 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using QuanLyKhachSan.Forms;
+using QuanLyKhachSan.Repositary;
+using QuanLyKhachSan.Objects;
+
+namespace QuanLyKhachSan.UserController
+{
+    public partial class ucThongTin : UserControl
+    {
+        private ucMenu ucmenu = null;
+        SQLConnection connection;
+        public ucThongTin(Control callingControll)
+        {
+            connection = new SQLConnection();
+            ucmenu = callingControll as ucMenu;
+            InitializeComponent();
+            txtNgayNhanPhong.Text = DateTime.Now.ToString();
+        }
+
+        private void ucThongTinDatPhong2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonDatPhong_Click(object sender, EventArgs e)
+        {
+            int soNgay = Convert.ToInt32(txtSoNgay.Text);
+            double tongTien = 0;
+            string[] danhSachPhong = txtPhongThue.Text.Split(',');
+            foreach (string phong in danhSachPhong)
+            {
+                string getPrice = string.Format("select * from PHONG where MaPhong = {0}", Convert.ToInt32(phong.Trim()));
+                DataTable dt = connection.ExecuteQuery(getPrice);
+                tongTien += Convert.ToDouble(dt.Rows[0]["Price"]) * soNgay;
+            }
+            ConfirmForm form = new ConfirmForm(tongTien.ToString(), this);
+            form.Show();
+        }
+
+        private void buttonDanhSachPhong_Click(object sender, EventArgs e)
+        {
+            ucDanhSachPhong ucPhong = new ucDanhSachPhong(ucmenu, this);
+            this.ucmenu.AddControlToPanel(ucPhong);
+        }
+
+        private void ClearTextBox()
+        {
+            txtHoTen.Text = "";
+            txtCMND.Text = "";
+            txtNgaySinh.Text = "";
+            txtNgayNhanPhong.Text = DateTime.Now.ToString();
+            txtPhongThue.Text = "";
+            txtSoNgay.Text = "";
+        }
+
+        public void XacNhanDatPhong()
+        {
+            KhachHang customer = new KhachHang
+            {
+                CMND = txtCMND.Text,
+                HoTen = txtHoTen.Text,
+                NgaySinh = Convert.ToDateTime(txtNgaySinh.Text),
+                GioiTinh = radNam.Checked ? 1 : 0
+            };
+
+            string query = string.Format("Select * from KHACHHANG where SoCMT = '{0}'", customer.CMND);
+            DataTable dataTable = connection.ExecuteQuery(query);
+            if (dataTable.Rows.Count == 0)
+            {
+                string insert = string.Format("Insert into KHACHHANG( SoCMT, TenKH, GioiTinh, NgaySinh ) values (N'{0}', N'{1}', {2}, '{3}')", customer.CMND, customer.HoTen, customer.GioiTinh, txtNgaySinh.Text);
+                connection.ExcuseNonQuery(insert);
+            }
+
+            string hoaDonPhong = string.Format("Insert into HOADONPHONG( SoCMT, MaNV ) values ('{0}', {1})", customer.CMND, Account.acc.MaNV);
+            connection.ExcuseNonQuery(hoaDonPhong);
+
+            DataTable phongTable = connection.ExecuteQuery("Select * from HOADONPHONG");
+            int maHoaDon = Convert.ToInt32(phongTable.Rows[phongTable.Rows.Count - 1]["MaHoaDonPhong"]);
+            string[] danhSachPhong = txtPhongThue.Text.Split(',');
+            foreach (string phong in danhSachPhong)
+            {
+                string queryPhong = string.Format("Update PHONG set TrangThai = 1 where MaPhong = {0}", Convert.ToInt32(phong.Trim()));
+                connection.ExcuseNonQuery(queryPhong);
+                string ChiTietHoaDon = string.Format("Insert into CHITIETTHUEPHONG( MaHoaDonPhong, MaPhong, SoNgay, NgayThue ) values ({0}, {1}, {2}, '{3}')", maHoaDon, Convert.ToInt32(phong.Trim()), Convert.ToInt32(txtSoNgay.Text), Convert.ToDateTime(txtNgayNhanPhong.Text));
+                connection.ExcuseNonQuery(ChiTietHoaDon);
+            }
+            ClearTextBox();
+        }
+
+        private void btnThoat_Click(object sender, EventArgs e)
+        {
+            this.ucmenu.AddControlToPanel(new ucMenu());
+        }
+    }
+}
