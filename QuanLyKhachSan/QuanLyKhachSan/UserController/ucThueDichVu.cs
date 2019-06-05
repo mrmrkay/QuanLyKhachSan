@@ -45,7 +45,14 @@ namespace QuanLyKhachSan.UserController
                 CheckBox cbDichVu = new CheckBox();
                 cbDichVu.Name = "cbDichVu" + item.MaDichVu;
                 cbDichVu.Text = item.TenDichVu;
-                cbDichVu.Location = new Point(50, 40 + 40*i);
+                if(i>=8)
+                {
+                    cbDichVu.Location = new Point(220, -20 + 40 * (i-8));
+                }
+                else
+                {
+                    cbDichVu.Location = new Point(20, -20 + 40 * i);
+                }
                 cbDichVu.Width = 200;
                 cbDichVu.Visible = true;
                 cbDichVu.CheckedChanged += new EventHandler(CBDichVu_Checked);
@@ -94,39 +101,52 @@ namespace QuanLyKhachSan.UserController
                 giaDV.Visible = true;
                 giaDV.Width = 100;
 
-                TextBox txtNgay = new TextBox();
-                txtNgay.Name = "txtNgay" + dv.MaDichVu;
-                txtNgay.Location = new Point(260, 10 + i * 40);
-                txtNgay.Visible = true;
-                txtNgay.Width = 150;
+                //TextBox txtNgay = new TextBox();
+                //txtNgay.Name = "txtNgay" + dv.MaDichVu;
+                //txtNgay.Location = new Point(260, 10 + i * 40);
+                //txtNgay.Visible = true;
+                //txtNgay.Width = 150;
+
+                NumericUpDown nudSoLuong = new NumericUpDown();
+                nudSoLuong.Name = "nudSoLuong" + dv.MaDichVu;
+                nudSoLuong.Location = new Point(260, 10 + i * 40);
+                nudSoLuong.Visible = true;
+                nudSoLuong.Width = 100;
+                nudSoLuong.Minimum = 0;
+                nudSoLuong.DecimalPlaces = 0;
 
                 panelChiTiet.Controls.Add(giaDV);
                 panelChiTiet.Controls.Add(tenDV);
-                panelChiTiet.Controls.Add(txtNgay);
+                //panelChiTiet.Controls.Add(txtNgay);
+                panelChiTiet.Controls.Add(nudSoLuong);
                 i++;
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
          {
+            double totalTemp = 0;
             foreach( DichVuDuocDat dvDat in lstDichVuDaDat)
             {
                 DichVu dv = tbDichVu.LayDichVu(dvDat.TenDichVu);
-                foreach (Control c in panelChiTiet.Controls.OfType<TextBox>())
+                foreach (Control c in panelChiTiet.Controls.OfType<NumericUpDown>())
                 {
-                    if(c.Name == "txtNgay" + dv.MaDichVu)
+                    if (c.Name == "nudSoLuong" + dv.MaDichVu)
                     {
                         try
                         {
-                            dvDat.NgayThue = Convert.ToDateTime(c.Text);
-                        } catch
+                            dvDat.SoLuong = Convert.ToInt32(c.Text);
+                        }
+                        catch
                         {
                             MessageBox.Show("Bạn nhập sai định dạng ngày");
                         }
                     }
                 }
+                dvDat.NgayThue = DateTime.Now;
+                totalTemp += dvDat.SoLuong * tbDichVu.LayGiaDichVu(dvDat.TenDichVu);
             }
-            ChiTietHoaDocDichVu dichVuForm = new ChiTietHoaDocDichVu(tong.ToString(), this);
+            ChiTietHoaDocDichVu dichVuForm = new ChiTietHoaDocDichVu(totalTemp.ToString(), this);
             dichVuForm.Show();
         }
 
@@ -137,22 +157,29 @@ namespace QuanLyKhachSan.UserController
 
         public void LuuChiTietToDatabase()
         {
-            string hoaDonDichVu = string.Format("Insert into HOADONDICHVU( SoCMT, MaNV ) values ('{0}', {1})", Convert.ToInt32(txtCMT.Text), Account.acc.MaNV);
-            connection.ExcuseNonQuery(hoaDonDichVu);
-
-            DataTable dichVuTable = connection.ExecuteQuery("Select * from HOADONDICHVU");
-            int maDV = Convert.ToInt32(dichVuTable.Rows[dichVuTable.Rows.Count - 1]["MaHoaDonDichVu"]);
-
-            foreach (DichVuDuocDat item in lstDichVuDaDat)
+            try
             {
-                DichVu dv = tbDichVu.LayDichVu(item.TenDichVu);
-                string ChiTietDichVu = string.Format("Insert into CHITIETTHUEDICHVU( MaHoaDonDichVu, MaDichVu, NgayThue ) values ({0}, {1}, '{2}')", maDV, dv.MaDichVu, item.NgayThue);
-                connection.ExcuseNonQuery(ChiTietDichVu);
+                string hoaDonDichVu = string.Format("Insert into HOADONDICHVU( SoCMT, MaNV ) values ('{0}', {1})", Convert.ToInt32(txtCMT.Text), Account.acc.MaNV);
+                connection.ExcuseNonQuery(hoaDonDichVu);
+
+                DataTable dichVuTable = connection.ExecuteQuery("Select * from HOADONDICHVU");
+                int maDV = Convert.ToInt32(dichVuTable.Rows[dichVuTable.Rows.Count - 1]["MaHoaDonDichVu"]);
+
+                foreach (DichVuDuocDat item in lstDichVuDaDat)
+                {
+                    DichVu dv = tbDichVu.LayDichVu(item.TenDichVu);
+                    string ChiTietDichVu = string.Format("Insert into CHITIETTHUEDICHVU( MaHoaDonDichVu, MaDichVu, NgayThue, SoLuong ) values ({0}, {1}, '{2}')", maDV, dv.MaDichVu, item.NgayThue, item.SoLuong);
+                    connection.ExcuseNonQuery(ChiTietDichVu);
+                }
+                LoadDichVu();
+                txtCMT.Clear();
+                lstDichVuDaDat.Clear();
+                LoadDichVuDaDat();
             }
-            LoadDichVu();
-            txtCMT.Clear();
-            lstDichVuDaDat.Clear();
-            LoadDichVuDaDat();
+            catch (Exception)
+            {
+                MessageBox.Show("Nhập sai cmt hoặc khách hàng không tồn tại");
+            }        
         }
     }
 }

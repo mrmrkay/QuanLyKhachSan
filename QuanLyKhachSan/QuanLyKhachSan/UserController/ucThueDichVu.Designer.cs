@@ -49,7 +49,7 @@
             this.panel1.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.panel1.Location = new System.Drawing.Point(79, 183);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(248, 398);
+            this.panel1.Size = new System.Drawing.Size(396, 433);
             this.panel1.TabIndex = 0;
             // 
             // label1
@@ -81,9 +81,9 @@
             this.label5.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(345, 54);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(193, 22);
+            this.label5.Size = new System.Drawing.Size(79, 22);
             this.label5.TabIndex = 5;
-            this.label5.Text = "Ngày đặt (mm/dd/yyyy)";
+            this.label5.Text = "Số lượng";
             // 
             // panelChiTiet
             // 
@@ -116,10 +116,10 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Modern No. 20", 13.8F, System.Drawing.FontStyle.Bold);
+            this.label2.Font = new System.Drawing.Font("Arial Narrow", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(155, 12);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(224, 25);
+            this.label2.Size = new System.Drawing.Size(238, 33);
             this.label2.TabIndex = 0;
             this.label2.Text = "Danh sách lựa chọn";
             // 
@@ -127,10 +127,10 @@
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Font = new System.Drawing.Font("Modern No. 20", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(385, 45);
+            this.label6.Font = new System.Drawing.Font("Arial Narrow", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(368, 41);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(447, 30);
+            this.label6.Size = new System.Drawing.Size(508, 40);
             this.label6.TabIndex = 2;
             this.label6.Text = "Chọn dịch vụ khách hàng muốn đặt";
             // 

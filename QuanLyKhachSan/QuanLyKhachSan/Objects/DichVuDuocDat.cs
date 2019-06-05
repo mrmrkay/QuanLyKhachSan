@@ -12,7 +12,7 @@ namespace QuanLyKhachSan.Objects
         public string TenKhachHang { get; set; }
         public string TenDichVu { get; set; }
         public DateTime NgayThue { get; set; }
-
+        public int SoLuong { get; set; }
         public string HomNay()
         {
             string[] ngayThues = Convert.ToString(DateTime.Now).Split(' ');
