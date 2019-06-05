@@ -55,7 +55,6 @@ namespace QuanLyKhachSan.UserController
         {
             txtHoTen.Text = "";
             txtCMND.Text = "";
-            txtNgaySinh.Text = "";
             txtNgayNhanPhong.Text = DateTime.Now.ToString();
             txtPhongThue.Text = "";
             txtSoNgay.Text = "";
@@ -67,7 +66,7 @@ namespace QuanLyKhachSan.UserController
             {
                 CMND = txtCMND.Text,
                 HoTen = txtHoTen.Text,
-                NgaySinh = Convert.ToDateTime(txtNgaySinh.Text),
+                NgaySinh = ngaySinh.Value,
                 GioiTinh = radNam.Checked ? 1 : 0
             };
 
@@ -75,7 +74,7 @@ namespace QuanLyKhachSan.UserController
             DataTable dataTable = connection.ExecuteQuery(query);
             if (dataTable.Rows.Count == 0)
             {
-                string insert = string.Format("Insert into KHACHHANG( SoCMT, TenKH, GioiTinh, NgaySinh ) values (N'{0}', N'{1}', {2}, '{3}')", customer.CMND, customer.HoTen, customer.GioiTinh, txtNgaySinh.Text);
+                string insert = string.Format("Insert into KHACHHANG( SoCMT, TenKH, GioiTinh, NgaySinh ) values (N'{0}', N'{1}', {2}, '{3}')", customer.CMND, customer.HoTen, customer.GioiTinh, ngaySinh.Value.ToShortDateString());
                 connection.ExcuseNonQuery(insert);
             }
 
@@ -89,7 +88,7 @@ namespace QuanLyKhachSan.UserController
             {
                 string queryPhong = string.Format("Update PHONG set TrangThai = 1 where MaPhong = {0}", Convert.ToInt32(phong.Trim()));
                 connection.ExcuseNonQuery(queryPhong);
-                string ChiTietHoaDon = string.Format("Insert into CHITIETTHUEPHONG( MaHoaDonPhong, MaPhong, SoNgay, NgayThue ) values ({0}, {1}, {2}, '{3}')", maHoaDon, Convert.ToInt32(phong.Trim()), Convert.ToInt32(txtSoNgay.Text), Convert.ToDateTime(txtNgayNhanPhong.Text));
+                string ChiTietHoaDon = string.Format("Insert into CHITIETTHUEPHONG( MaHoaDonPhong, MaPhong, SoNgay, NgayThue ) values ({0}, {1}, {2}, '{3}')", maHoaDon, Convert.ToInt32(phong.Trim()), Convert.ToInt32(txtSoNgay.Text), Convert.ToDateTime(txtNgayNhanPhong.Text).ToShortDateString());
                 connection.ExcuseNonQuery(ChiTietHoaDon);
             }
             ClearTextBox();
@@ -117,7 +116,7 @@ namespace QuanLyKhachSan.UserController
                 {
                     radNu.Checked = true;
                 }
-                txtNgaySinh.Text = khachHang.NgaySinh.ToString("dd/MM/yyyy");
+                ngaySinh.Value = khachHang.NgaySinh;
                 txtNgayNhanPhong.Text = "";
                 txtPhongThue.Text = tbKhachHang.LayDanhSachPhongThue(txtCMND.Text.Trim());
             }

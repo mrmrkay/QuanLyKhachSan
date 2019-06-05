@@ -168,7 +168,7 @@ namespace QuanLyKhachSan.UserController
                 foreach (DichVuDuocDat item in lstDichVuDaDat)
                 {
                     DichVu dv = tbDichVu.LayDichVu(item.TenDichVu);
-                    string ChiTietDichVu = string.Format("Insert into CHITIETTHUEDICHVU( MaHoaDonDichVu, MaDichVu, NgayThue, SoLuong ) values ({0}, {1}, '{2}')", maDV, dv.MaDichVu, item.NgayThue, item.SoLuong);
+                    string ChiTietDichVu = string.Format("Insert into CHITIETTHUEDICHVU( MaHoaDonDichVu, MaDichVu, NgayThue, SoLuong ) values ({0}, {1}, '{2}',{3})", maDV, dv.MaDichVu, item.NgayThue.ToShortDateString(), item.SoLuong);
                     connection.ExcuseNonQuery(ChiTietDichVu);
                 }
                 LoadDichVu();

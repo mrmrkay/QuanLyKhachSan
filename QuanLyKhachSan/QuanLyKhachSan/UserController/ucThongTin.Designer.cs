@@ -43,12 +43,12 @@
             this.buttonDatPhong = new System.Windows.Forms.Button();
             this.txtSoNgay = new System.Windows.Forms.RichTextBox();
             this.txtNgayNhanPhong = new System.Windows.Forms.RichTextBox();
-            this.txtNgaySinh = new System.Windows.Forms.RichTextBox();
             this.txtCMND = new System.Windows.Forms.RichTextBox();
             this.txtHoTen = new System.Windows.Forms.RichTextBox();
             this.btnThoat = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.btnCheck = new System.Windows.Forms.Button();
+            this.ngaySinh = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // buttonTraPhong
@@ -206,14 +206,6 @@
             this.txtNgayNhanPhong.TabIndex = 31;
             this.txtNgayNhanPhong.Text = "";
             // 
-            // txtNgaySinh
-            // 
-            this.txtNgaySinh.Location = new System.Drawing.Point(226, 336);
-            this.txtNgaySinh.Name = "txtNgaySinh";
-            this.txtNgaySinh.Size = new System.Drawing.Size(263, 47);
-            this.txtNgaySinh.TabIndex = 30;
-            this.txtNgaySinh.Text = "";
-            // 
             // txtCMND
             // 
             this.txtCMND.Location = new System.Drawing.Point(226, 233);
@@ -261,11 +253,19 @@
             this.btnCheck.UseVisualStyleBackColor = true;
             this.btnCheck.Click += new System.EventHandler(this.btnCheck_Click);
             // 
+            // ngaySinh
+            // 
+            this.ngaySinh.Location = new System.Drawing.Point(226, 336);
+            this.ngaySinh.Name = "ngaySinh";
+            this.ngaySinh.Size = new System.Drawing.Size(263, 22);
+            this.ngaySinh.TabIndex = 49;
+            // 
             // ucThongTin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::QuanLyKhachSan.Properties.Resources.DCQOSbR;
+            this.Controls.Add(this.ngaySinh);
             this.Controls.Add(this.btnCheck);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.btnThoat);
@@ -284,7 +284,6 @@
             this.Controls.Add(this.buttonDatPhong);
             this.Controls.Add(this.txtSoNgay);
             this.Controls.Add(this.txtNgayNhanPhong);
-            this.Controls.Add(this.txtNgaySinh);
             this.Controls.Add(this.txtCMND);
             this.Controls.Add(this.txtHoTen);
             this.Name = "ucThongTin";
@@ -312,11 +311,11 @@
         private System.Windows.Forms.Button buttonDatPhong;
         private System.Windows.Forms.RichTextBox txtSoNgay;
         private System.Windows.Forms.RichTextBox txtNgayNhanPhong;
-        private System.Windows.Forms.RichTextBox txtNgaySinh;
         private System.Windows.Forms.RichTextBox txtCMND;
         private System.Windows.Forms.RichTextBox txtHoTen;
         private System.Windows.Forms.Button btnThoat;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btnCheck;
+        private System.Windows.Forms.DateTimePicker ngaySinh;
     }
 }
