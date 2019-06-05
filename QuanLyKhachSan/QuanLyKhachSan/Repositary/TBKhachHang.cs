@@ -60,5 +60,26 @@ namespace QuanLyKhachSan.Repositary
             phong.SetNgayTra();
             return phong;
         }
+
+        public string LayDanhSachPhongThue(string id)
+        {
+            string danhSach = null;
+            string query = string.Format("Select PHONG.MaPhong from KHACHHANG, PHONG, HOADONPHONG, CHITIETTHUEPHONG " +
+                "where KHACHHANG.SoCMT = N'{0}' " +
+                "and PHONG.TrangThai = 1 " +
+                "and KHACHHANG.SoCMT = HOADONPHONG.SoCMT " +
+                "and HOADONPHONG.MaHoaDonPhong = CHITIETTHUEPHONG.MaHoaDonPhong " +
+                "and PHONG.MaPhong = CHITIETTHUEPHONG.MaPhong", id);
+            DataTable dataTable = SQLConnection.Instance.ExecuteQuery(query);
+            if (dataTable.Rows.Count > 0)
+            {
+                foreach(DataRow row in dataTable.Rows)
+                {
+                    danhSach = danhSach + Convert.ToString(row["MaPhong"]) + ",";
+                }
+                return danhSach;
+            }
+            return null;
+        }
     }
 }

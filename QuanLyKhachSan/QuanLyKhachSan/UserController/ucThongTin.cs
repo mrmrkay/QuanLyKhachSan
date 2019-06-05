@@ -99,5 +99,42 @@ namespace QuanLyKhachSan.UserController
         {
             this.ucmenu.AddControlToPanel(new ucMenu());
         }
+
+        private void btnCheck_Click(object sender, EventArgs e)
+        {
+            KhachHang khachHang = new KhachHang();
+            TBKhachHang tbKhachHang = new TBKhachHang();
+            khachHang = tbKhachHang.LayKhachHang(txtCMND.Text.Trim());
+
+            if (khachHang != null)
+            {
+                txtHoTen.Text = khachHang.HoTen;
+                if (khachHang.GioiTinh == 1)
+                {
+                    radNam.Checked = true;
+                }
+                else
+                {
+                    radNu.Checked = true;
+                }
+                txtNgaySinh.Text = khachHang.NgaySinh.ToString("dd/MM/yyyy");
+                txtNgayNhanPhong.Text = "";
+                txtPhongThue.Text = tbKhachHang.LayDanhSachPhongThue(txtCMND.Text.Trim());
+            }
+
+
+        }
+
+        private void buttonTraPhong_Click(object sender, EventArgs e)
+        {
+            TBPhong tbPhong = new TBPhong();
+            string[] phongs = txtPhongThue.Text.Split(',');
+            for(int i = 0; i < phongs.Count() - 1; i++)
+            {
+                tbPhong.TraPhong(phongs[i]);
+            }
+            ClearTextBox();
+            MessageBox.Show("Da tra thanh cong");
+        }
     }
 }

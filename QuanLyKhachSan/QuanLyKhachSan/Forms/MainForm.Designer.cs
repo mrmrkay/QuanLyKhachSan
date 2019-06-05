@@ -33,7 +33,8 @@
             // 
             // panelControl
             // 
-            this.panelControl.Location = new System.Drawing.Point(20, 12);
+            this.panelControl.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.panelControl.Location = new System.Drawing.Point(0, 2);
             this.panelControl.Name = "panelControl";
             this.panelControl.Size = new System.Drawing.Size(1250, 650);
             this.panelControl.TabIndex = 0;
@@ -44,7 +45,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.ClientSize = new System.Drawing.Size(1282, 683);
+            this.ClientSize = new System.Drawing.Size(1250, 652);
             this.Controls.Add(this.panelControl);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

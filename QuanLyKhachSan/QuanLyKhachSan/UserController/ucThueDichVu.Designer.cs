@@ -41,15 +41,13 @@
             this.button2 = new System.Windows.Forms.Button();
             this.txtCMT = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
             this.panelDanhSach.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(79, 141);
+            this.panel1.Location = new System.Drawing.Point(79, 183);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(248, 398);
             this.panel1.TabIndex = 0;
@@ -58,7 +56,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Modern No. 20", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(72, 12);
+            this.label1.Location = new System.Drawing.Point(160, 141);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(91, 25);
             this.label1.TabIndex = 0;
@@ -178,6 +176,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.BackgroundImage = global::QuanLyKhachSan.Properties.Resources.DCQOSbR;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtCMT);
             this.Controls.Add(this.button2);
@@ -188,8 +187,6 @@
             this.Name = "ucThueDichVu";
             this.Size = new System.Drawing.Size(1250, 650);
             this.Load += new System.EventHandler(this.ucThueDichVu_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panelDanhSach.ResumeLayout(false);
             this.panelDanhSach.PerformLayout();
             this.ResumeLayout(false);

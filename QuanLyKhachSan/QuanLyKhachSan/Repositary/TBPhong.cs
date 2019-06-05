@@ -28,6 +28,12 @@ namespace QuanLyKhachSan.Repositary
             return lstPhong;
         }
 
+        public void TraPhong(string id)
+        {
+            string queryPhong = string.Format("Update PHONG set TrangThai = 0 where MaPhong = {0}", Convert.ToInt32(id.Trim()));
+            SQLConnection.Instance.ExcuseNonQuery(queryPhong);
+        }
+
         public Phong LayPhong(string maPhong)
         {
             string query = string.Format("Select * from PHONG where MaPhong = {0}", Convert.ToInt32(maPhong));
@@ -44,5 +50,7 @@ namespace QuanLyKhachSan.Repositary
             }
             return null;
         }
+
+        
     }
 }

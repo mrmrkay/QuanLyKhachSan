@@ -39,6 +39,7 @@
             // 
             // panelControl
             // 
+            this.panelControl.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.panelControl.BackgroundImage = global::QuanLyKhachSan.Properties.Resources.DCQOSbR;
             this.panelControl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.panelControl.Controls.Add(this.label1);
@@ -48,12 +49,13 @@
             this.panelControl.Controls.Add(this.btnDatPhong);
             this.panelControl.Location = new System.Drawing.Point(3, 3);
             this.panelControl.Name = "panelControl";
-            this.panelControl.Size = new System.Drawing.Size(1244, 644);
+            this.panelControl.Size = new System.Drawing.Size(1250, 650);
             this.panelControl.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(388, 26);
             this.label1.Name = "label1";

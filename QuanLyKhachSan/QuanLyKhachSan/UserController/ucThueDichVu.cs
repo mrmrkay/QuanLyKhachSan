@@ -36,6 +36,7 @@ namespace QuanLyKhachSan.UserController
 
         public void LoadDichVu()
         {
+            panel1.Controls.Clear();
             List<DichVu> lstDichVu = new List<DichVu>();
             lstDichVu = tbDichVu.LoadDichVu();
             int i = 1;
